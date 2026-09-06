@@ -187,3 +187,84 @@ def plot_optimizer_error_convergence(
         plt.savefig(save_path, bbox_inches="tight", dpi=300)
     plt.show()
 
+
+def plot_multiexperiment_4grid(
+    histories: Dict[str, Dict[str, List[float]]],
+    title: str = "Convergencia y Eficiencia Multi-Experimento (Pérdida y Precisión vs. Épocas y Tiempo)",
+    save_path: Optional[str] = None
+) -> None:
+    """
+    Generates a publication-grade 2x2 comparison grid for multiple experiments:
+    - Panel 1 (Top-Left): Val Loss vs. Epochs
+    - Panel 2 (Top-Right): Val Loss vs. Elapsed Time (seconds)
+    - Panel 3 (Bottom-Left): Val Top-1 Accuracy (%) vs. Epochs
+    - Panel 4 (Bottom-Right): Val Top-1 Accuracy (%) vs. Elapsed Time (seconds)
+
+    Each curve is identified by model, optimizer, and technique in the legend.
+    """
+    set_plotting_style()
+    fig, axes = plt.subplots(2, 2, figsize=(16, 11))
+
+    # Color palette
+    colors = plt.cm.tab10.colors
+
+    for idx, (exp_label, hist) in enumerate(histories.items()):
+        color = colors[idx % len(colors)]
+        num_epochs = len(hist.get("val_loss", []))
+        if num_epochs == 0:
+            continue
+        epochs = list(range(1, num_epochs + 1))
+
+        # Calculate cumulative time in seconds
+        epoch_times = hist.get("epoch_times", [1.0] * num_epochs)
+        cum_time = list(np.cumsum(epoch_times))
+
+        val_loss = hist["val_loss"]
+        val_acc = [v * 100 for v in hist.get("val_acc", [0.0] * num_epochs)]
+
+        # 1. Val Loss vs Epoch
+        axes[0, 0].plot(epochs, val_loss, marker="o", lw=2, color=color, label=exp_label)
+
+        # 2. Val Loss vs Time
+        axes[0, 1].plot(cum_time, val_loss, marker="s", lw=2, color=color, label=exp_label)
+
+        # 3. Val Accuracy vs Epoch
+        axes[1, 0].plot(epochs, val_acc, marker="^", lw=2, color=color, label=exp_label)
+
+        # 4. Val Accuracy vs Time
+        axes[1, 1].plot(cum_time, val_acc, marker="d", lw=2, color=color, label=exp_label)
+
+    # Subplot styling
+    axes[0, 0].set_title("(A) Pérdida de Validación vs. Época", fontsize=12, fontweight="bold")
+    axes[0, 0].set_xlabel("Época", fontsize=11)
+    axes[0, 0].set_ylabel("Validation Loss (Cross-Entropy)", fontsize=11)
+    axes[0, 0].legend(fontsize=9, loc="upper right")
+    axes[0, 0].grid(True, linestyle="--", alpha=0.6)
+
+    axes[0, 1].set_title("(B) Pérdida de Validación vs. Tiempo Acumulado (s)", fontsize=12, fontweight="bold")
+    axes[0, 1].set_xlabel("Tiempo Transcurrido (segundos)", fontsize=11)
+    axes[0, 1].set_ylabel("Validation Loss (Cross-Entropy)", fontsize=11)
+    axes[0, 1].legend(fontsize=9, loc="upper right")
+    axes[0, 1].grid(True, linestyle="--", alpha=0.6)
+
+    axes[1, 0].set_title("(C) Precisión Top-1 vs. Época", fontsize=12, fontweight="bold")
+    axes[1, 0].set_xlabel("Época", fontsize=11)
+    axes[1, 0].set_ylabel("Top-1 Accuracy (%)", fontsize=11)
+    axes[1, 0].legend(fontsize=9, loc="lower right")
+    axes[1, 0].grid(True, linestyle="--", alpha=0.6)
+
+    axes[1, 1].set_title("(D) Precisión Top-1 vs. Tiempo Acumulado (s)", fontsize=12, fontweight="bold")
+    axes[1, 1].set_xlabel("Tiempo Transcurrido (segundos)", fontsize=11)
+    axes[1, 1].set_ylabel("Top-1 Accuracy (%)", fontsize=11)
+    axes[1, 1].legend(fontsize=9, loc="lower right")
+    axes[1, 1].grid(True, linestyle="--", alpha=0.6)
+
+    fig.suptitle(title, fontsize=15, fontweight="bold", y=1.01)
+    plt.tight_layout()
+
+    if save_path:
+        Path(save_path).parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(save_path, bbox_inches="tight", dpi=300)
+    plt.show()
+
+

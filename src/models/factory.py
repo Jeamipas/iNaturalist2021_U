@@ -60,3 +60,7 @@ def build_model(
 
     else:
         raise ValueError(f"Unknown model_type: '{model_type}'. Choose from 'mlp', 'cnn_custom', 'resnet18', 'resnet50', 'convnext_tiny', 'efficientnet_b0'.")
+
+
+create_model = build_model
+
