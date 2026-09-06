@@ -144,3 +144,46 @@ def plot_long_tail_comparison(
         Path(save_path).parent.mkdir(parents=True, exist_ok=True)
         plt.savefig(save_path, bbox_inches="tight", dpi=300)
     plt.show()
+
+
+def plot_optimizer_error_convergence(
+    optimizer_histories: Dict[str, Dict[str, List[float]]],
+    title: str = "Convergencia de Error y Pérdida por Optimizador",
+    save_path: Optional[str] = None
+) -> None:
+    """
+    Plots training error rate (1 - Top-1) and validation loss across epochs for different optimizers
+    (SGD+Momentum, Adam, AdamW, Muon, Lion).
+    """
+    set_plotting_style()
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5.5))
+
+    for opt_name, hist in optimizer_histories.items():
+        epochs = range(1, len(hist["train_loss"]) + 1)
+        # Training error rate: (1 - train_acc) * 100
+        train_error = [(1.0 - acc) * 100 for acc in hist["train_acc"]]
+        axes[0].plot(epochs, train_error, marker="o", lw=2, label=opt_name)
+
+        # Validation Loss
+        axes[1].plot(epochs, hist["val_loss"], marker="s", lw=2, linestyle="--", label=opt_name)
+
+    axes[0].set_title("Tasa de Error en Entrenamiento (1 - Top-1 Acc %)", fontsize=12)
+    axes[0].set_xlabel("Época", fontsize=11)
+    axes[0].set_ylabel("Error de Entrenamiento (%)", fontsize=11)
+    axes[0].legend()
+    axes[0].grid(True, linestyle="--", alpha=0.6)
+
+    axes[1].set_title("Pérdida en Validación (Val Loss)", fontsize=12)
+    axes[1].set_xlabel("Época", fontsize=11)
+    axes[1].set_ylabel("Cross-Entropy Loss", fontsize=11)
+    axes[1].legend()
+    axes[1].grid(True, linestyle="--", alpha=0.6)
+
+    fig.suptitle(title, fontsize=14, y=1.02)
+    plt.tight_layout()
+
+    if save_path:
+        Path(save_path).parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(save_path, bbox_inches="tight", dpi=300)
+    plt.show()
+
