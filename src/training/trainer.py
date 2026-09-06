@@ -270,6 +270,9 @@ class Trainer:
                 self.writer.add_scalar("Accuracy/val_top5", val_metrics["top5_acc"] * 100, epoch)
                 self.writer.add_scalar("F1/val_macro", val_metrics["macro_f1"] * 100, epoch)
                 self.writer.add_scalar("F1/val_weighted", val_metrics["weighted_f1"] * 100, epoch)
+                cum_time = sum(history["epoch_times"])
+                self.writer.add_scalar("Time/Cumulative_Sec", cum_time, epoch)
+                self.writer.add_scalar("Time/Epoch_Sec", ep_time, epoch)
                 if self.device.type == "cuda":
                     mem_mb = torch.cuda.max_memory_allocated(self.device) / (1024 * 1024)
                     self.writer.add_scalar("Efficiency/VRAM_MB", mem_mb, epoch)
@@ -300,6 +303,8 @@ class Trainer:
 
         if self.writer is not None:
             self.writer.flush()
+            self.writer.close()
+
 
         total_time = time.time() - start_time
         peak_vram = 0.0

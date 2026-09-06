@@ -88,8 +88,8 @@ class Muon(torch.optim.Optimizer):
 
                 orig_shape = g_update.shape
                 if len(orig_shape) >= 2:
-                    g_2d = g_update.view(orig_shape[0], -1)
-                    ortho_update = zeropower_via_newtonschulz5(g_2d, steps=ns_steps).view(orig_shape)
+                    g_2d = g_update.reshape(orig_shape[0], -1)
+                    ortho_update = zeropower_via_newtonschulz5(g_2d, steps=ns_steps).reshape(orig_shape)
                     scale = max(1.0, g_2d.size(0) / g_2d.size(1)) ** 0.5
                     p.data.add_(ortho_update, alpha=-lr * scale)
                 else:
