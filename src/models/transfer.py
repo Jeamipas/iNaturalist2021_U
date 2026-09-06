@@ -33,52 +33,64 @@ class TransferCNN(nn.Module):
         self.num_classes = num_classes
         self.mode = mode.lower()
 
-        # Build backbone and replace head
-        self.backbone, self.in_features, self.head_attr = self._create_backbone(
-            self.backbone_name, pretrained
+        # Build backbone and configure classification head
+        self.backbone, self.in_features, self.head_attr, self.head = self._create_backbone(
+            self.backbone_name, pretrained, num_classes, dropout_rate
         )
-
-        # Build custom classification head with dropout
-        self.head = nn.Sequential(
-            nn.Dropout(p=dropout_rate),
-            nn.Linear(self.in_features, num_classes)
-        )
-
-        # Replace classification head on backbone
-        setattr(self.backbone, self.head_attr, self.head)
 
         # Apply freezing mode
         self.set_fine_tuning_mode(self.mode)
 
-    def _create_backbone(self, name: str, pretrained: bool):
+    def _create_backbone(self, name: str, pretrained: bool, num_classes: int, dropout_rate: float = 0.2):
         if name == "resnet18":
             weights = models.ResNet18_Weights.DEFAULT if pretrained else None
             m = models.resnet18(weights=weights)
-            return m, m.fc.in_features, "fc"
+            in_features = m.fc.in_features
+            head = nn.Sequential(
+                nn.Dropout(p=dropout_rate),
+                nn.Linear(in_features, num_classes)
+            )
+            m.fc = head
+            return m, in_features, "fc", head
 
         elif name == "resnet50":
             weights = models.ResNet50_Weights.DEFAULT if pretrained else None
             m = models.resnet50(weights=weights)
-            return m, m.fc.in_features, "fc"
+            in_features = m.fc.in_features
+            head = nn.Sequential(
+                nn.Dropout(p=dropout_rate),
+                nn.Linear(in_features, num_classes)
+            )
+            m.fc = head
+            return m, in_features, "fc", head
 
         elif name == "convnext_tiny":
             weights = models.ConvNeXt_Tiny_Weights.DEFAULT if pretrained else None
             m = models.convnext_tiny(weights=weights)
-            # In torchvision convnext, classifier is Sequential: LayerNorm2d, Flatten, Linear
             in_features = m.classifier[2].in_features
-            # Replace classifier Sequential
-            m.classifier = nn.Identity()
-            return m, in_features, "classifier"
+            head = nn.Sequential(
+                m.classifier[0],  # LayerNorm2d
+                m.classifier[1],  # Flatten
+                nn.Dropout(p=dropout_rate),
+                nn.Linear(in_features, num_classes)
+            )
+            m.classifier = head
+            return m, in_features, "classifier", head
 
         elif name == "efficientnet_b0":
             weights = models.EfficientNet_B0_Weights.DEFAULT if pretrained else None
             m = models.efficientnet_b0(weights=weights)
             in_features = m.classifier[1].in_features
-            m.classifier = nn.Identity()
-            return m, in_features, "classifier"
+            head = nn.Sequential(
+                nn.Dropout(p=dropout_rate),
+                nn.Linear(in_features, num_classes)
+            )
+            m.classifier = head
+            return m, in_features, "classifier", head
 
         else:
             raise ValueError(f"Unsupported backbone: {name}. Choose from resnet18, resnet50, convnext_tiny, efficientnet_b0.")
+
 
     def set_fine_tuning_mode(self, mode: str) -> None:
         """
@@ -151,10 +163,5 @@ class TransferCNN(nn.Module):
         return param_groups
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        if self.head_attr == "fc":
-            # For ResNet, the head was assigned directly to self.backbone.fc
-            return self.backbone(x)
-        else:
-            # For ConvNeXt / EfficientNet where head replaced classifier
-            features = self.backbone(x)
-            return self.head(features)
+        return self.backbone(x)
+

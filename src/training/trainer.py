@@ -44,6 +44,7 @@ class Trainer:
         early_stopping: Optional[EarlyStopping] = None,
         use_amp: bool = True,
         class_tiers: Optional[Dict[str, List[int]]] = None,
+        label_to_kingdom: Optional[Dict[int, str]] = None,
         batch_augmenter: Optional[object] = None,
         grad_accum_steps: int = 1,
         tb_log_dir: Optional[str] = None
@@ -54,9 +55,11 @@ class Trainer:
         self.scheduler = scheduler
         self.early_stopping = early_stopping
         self.class_tiers = class_tiers
+        self.label_to_kingdom = label_to_kingdom
         self.batch_augmenter = batch_augmenter
         self.grad_accum_steps = max(1, grad_accum_steps)
         self.show_pbar = True
+
 
         # TensorBoard integration
         self.writer = SummaryWriter(log_dir=tb_log_dir) if (SummaryWriter and tb_log_dir) else None
@@ -188,7 +191,14 @@ class Trainer:
             y_probs=y_probs,
             class_tiers=self.class_tiers
         )
+
+        if self.label_to_kingdom is not None:
+            from src.utils.metrics import compute_kingdom_breakdown
+            kingdom_metrics = compute_kingdom_breakdown(y_true, y_pred, self.label_to_kingdom)
+            metrics.update(kingdom_metrics)
+
         return val_loss, metrics
+
 
     def fit(
         self,

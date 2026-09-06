@@ -101,3 +101,38 @@ def compute_classification_metrics(
                 metrics[f"{tier_name}_count"] = 0
 
     return metrics
+
+
+def compute_kingdom_breakdown(
+    y_true: Union[List[int], np.ndarray, torch.Tensor],
+    y_pred: Union[List[int], np.ndarray, torch.Tensor],
+    label_to_kingdom: Dict[int, str]
+) -> Dict[str, float]:
+    """Computes Top-1 accuracy and sample count for each biological kingdom."""
+    if isinstance(y_true, torch.Tensor):
+        y_true = y_true.detach().cpu().numpy()
+    if isinstance(y_pred, torch.Tensor):
+        y_pred = y_pred.detach().cpu().numpy()
+
+    y_true = np.asarray(y_true)
+    y_pred = np.asarray(y_pred)
+
+    kingdoms = sorted(set(label_to_kingdom.values()))
+    results = {}
+
+    for k in kingdoms:
+        k_classes = {lbl for lbl, king in label_to_kingdom.items() if king == k}
+        mask = np.isin(y_true, list(k_classes))
+        if np.sum(mask) > 0:
+            k_acc = float(accuracy_score(y_true[mask], y_pred[mask]))
+            k_f1 = float(f1_score(y_true[mask], y_pred[mask], average="macro", zero_division=0))
+            results[f"kingdom_{k.lower()}_acc"] = k_acc
+            results[f"kingdom_{k.lower()}_macro_f1"] = k_f1
+            results[f"kingdom_{k.lower()}_count"] = int(np.sum(mask))
+        else:
+            results[f"kingdom_{k.lower()}_acc"] = 0.0
+            results[f"kingdom_{k.lower()}_macro_f1"] = 0.0
+            results[f"kingdom_{k.lower()}_count"] = 0
+
+    return results
+
