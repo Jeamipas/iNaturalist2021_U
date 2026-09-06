@@ -73,6 +73,17 @@ class TestDataPipeline(unittest.TestCase):
         self.assertEqual(images.shape[0], 8)
         self.assertEqual(labels.shape[0], 8)
 
+    def test_batch_augmentations(self):
+        from src.data.transforms import get_batch_augmentations
+        batch_aug = get_batch_augmentations(num_classes=self.num_classes, mode="cutmix_or_mixup")
+        self.assertIsNotNone(batch_aug)
+
+        images = torch.randn(4, 3, 32, 32)
+        labels = torch.tensor([0, 1, 2, 3])
+        aug_imgs, aug_lbls = batch_aug(images, labels)
+        self.assertEqual(aug_imgs.shape, (4, 3, 32, 32))
+        self.assertEqual(aug_lbls.shape, (4, self.num_classes))
+
 
 if __name__ == "__main__":
     unittest.main()

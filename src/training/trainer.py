@@ -33,7 +33,9 @@ class Trainer:
         scheduler: Optional[object] = None,
         early_stopping: Optional[EarlyStopping] = None,
         use_amp: bool = True,
-        class_tiers: Optional[Dict[str, List[int]]] = None
+        class_tiers: Optional[Dict[str, List[int]]] = None,
+        batch_augmenter: Optional[object] = None,
+        grad_accum_steps: int = 1
     ):
         self.model = model
         self.criterion = criterion
@@ -41,6 +43,8 @@ class Trainer:
         self.scheduler = scheduler
         self.early_stopping = early_stopping
         self.class_tiers = class_tiers
+        self.batch_augmenter = batch_augmenter
+        self.grad_accum_steps = max(1, grad_accum_steps)
 
         if device is None:
             self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -61,33 +65,45 @@ class Trainer:
         self.scaler = torch.amp.GradScaler("cuda", enabled=self.use_amp)
 
     def train_one_epoch(self, dataloader: DataLoader) -> Tuple[float, float]:
-        """Runs one full training epoch."""
+        """Runs one full training epoch with optional CutMix/MixUp and Gradient Accumulation."""
         self.model.train()
         total_loss = 0.0
         correct = 0
         total_samples = 0
 
-        for images, targets in dataloader:
+        self.optimizer.zero_grad(set_to_none=True)
+
+        for step, (images, targets) in enumerate(dataloader):
             if self.device.type == "cuda" and images.ndim == 4:
                 images = images.to(self.device, memory_format=torch.channels_last, non_blocking=True)
             else:
                 images = images.to(self.device, non_blocking=True)
             targets = targets.to(self.device, non_blocking=True)
 
-            self.optimizer.zero_grad(set_to_none=True)
+            # Apply batch-level SOTA augmentations (CutMix / MixUp) on GPU
+            if self.batch_augmenter is not None:
+                images, targets = self.batch_augmenter(images, targets)
 
             with torch.amp.autocast("cuda", enabled=self.use_amp):
                 outputs = self.model(images)
                 loss = self.criterion(outputs, targets)
+                if self.grad_accum_steps > 1:
+                    loss = loss / self.grad_accum_steps
 
             self.scaler.scale(loss).backward()
-            self.scaler.step(self.optimizer)
-            self.scaler.update()
+
+            if (step + 1) % self.grad_accum_steps == 0 or (step + 1) == len(dataloader):
+                self.scaler.step(self.optimizer)
+                self.scaler.update()
+                self.optimizer.zero_grad(set_to_none=True)
 
             batch_size = targets.size(0)
-            total_loss += loss.item() * batch_size
+            raw_loss = loss.item() * (self.grad_accum_steps if self.grad_accum_steps > 1 else 1.0)
+            total_loss += raw_loss * batch_size
+
+            true_labels = targets.argmax(dim=1) if targets.ndim == 2 else targets
             preds = outputs.argmax(dim=1)
-            correct += (preds == targets).sum().item()
+            correct += (preds == true_labels).sum().item()
             total_samples += batch_size
 
         epoch_loss = total_loss / max(1, total_samples)
