@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyTorch checkpoints and weights
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.onnx
+
+# Datasets and large data files
+data/
+dataset/
+datasets/
+raw_data/
+*.tar.gz
+*.tar
+*.zip
+*.json.tar.gz
+
+# Logs and experiment tracking
+logs/
+runs/
+wandb/
+mlruns/
+*.log
+
+# Jupyter Notebook checkpoints and cache
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
