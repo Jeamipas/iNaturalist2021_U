@@ -14,11 +14,12 @@ class ExperimentConfig:
     description: str = "Base experiment configuration"
 
     # Dataset paths and subsetting
-    data_root: str = "./sample_inat"
-    train_json: str = "./sample_inat/train_mini.json"
-    val_json: str = "./sample_inat/val.json"
-    train_images: str = "./sample_inat/train_mini"
-    val_images: str = "./sample_inat/val"
+    data_root: str = "../recursos/inat2021_sample"
+    train_json: str = "../recursos/inat2021_sample/train_mini.json"
+    val_json: str = "../recursos/inat2021_sample/val.json"
+    train_images: str = "../recursos/inat2021_sample/train_mini"
+    val_images: str = "../recursos/inat2021_sample/val"
+
 
     # Strategic sample parameters (for 4GB VRAM safety)
     n_classes: int = 50

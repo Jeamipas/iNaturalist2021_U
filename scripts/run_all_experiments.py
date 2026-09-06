@@ -31,6 +31,15 @@ def main():
     print("  iNaturalist 2021: Ronda Maestra de Experimentos (E1 - E11 + SOTA)")
     print("=" * 75)
 
+    import argparse
+    parser = argparse.ArgumentParser(description="Ejecutor maestro de experimentos iNaturalist 2021.")
+    parser.add_argument("--data_dir", type=str, default=None, help="Ruta al dataset (auto-detecta recursos/inat2021_sample)")
+    parser.add_argument("--epochs", type=int, default=3, help="Número de épocas por experimento (default: 3)")
+    parser.add_argument("--batch_size", type=int, default=32, help="Tamaño de lote (default: 32)")
+    parser.add_argument("--img_size", type=int, default=128, help="Resolución de imagen (default: 128)")
+    parser.add_argument("--no_cache", action="store_true", help="Desactivar caché en memoria RAM")
+    args = parser.parse_args()
+
     SEED = 42
     seed_everything(SEED)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -38,31 +47,43 @@ def main():
     if device.type == "cuda":
         print(f"[*] GPU detectada: {torch.cuda.get_device_name(0)}")
 
-    # 1. Rutas al dataset real de muestra en recursos/
-    data_dir = ROOT_DIR.parent / "recursos" / "sample_inat"
+    # 1. Detección inteligente de dataset: prioriza el dataset preparado de 50 clases (3000 imgs)
+    if args.data_dir:
+        data_dir = Path(args.data_dir).resolve()
+    else:
+        sample_50 = ROOT_DIR.parent / "recursos" / "inat2021_sample"
+        if sample_50.exists() and (sample_50 / "train_mini.json").exists():
+            data_dir = sample_50
+        else:
+            data_dir = ROOT_DIR.parent / "recursos" / "sample_inat"
+
     train_json = data_dir / "train_mini.json"
     val_json = data_dir / "val.json"
     train_img_dir = data_dir / "train_mini"
     val_img_dir = data_dir / "val"
 
     if not (train_json.exists() and train_img_dir.exists()):
-        raise FileNotFoundError(f"Dataset de muestra no encontrado en {data_dir}")
+        raise FileNotFoundError(f"Dataset no encontrado en {data_dir}. Ejecuta primero scripts/prepare_dataset.py")
+
+    print(f"[*] Origen de datos activo: {data_dir.name} ({data_dir})")
 
     # 2. Datasets base
-    IMG_SIZE = 128  # Resolución ágil para ronda preliminar
-    EPOCHS = 3
-    BATCH_SIZE = 32
+    IMG_SIZE = args.img_size
+    EPOCHS = args.epochs
+    BATCH_SIZE = args.batch_size
+    cache_in_ram = not args.no_cache
 
     tf_train_std = get_transforms(split="train", img_size=IMG_SIZE, aug_mode="standard")
     tf_train_none = get_transforms(split="train", img_size=IMG_SIZE, aug_mode="none")
     tf_train_full = get_transforms(split="train", img_size=IMG_SIZE, aug_mode="full")
     tf_val = get_transforms(split="val", img_size=IMG_SIZE, aug_mode="none")
 
-    train_base = INatDataset(train_json, train_img_dir, transform=tf_train_std)
-    val_base = INatDataset(val_json, val_img_dir, transform=tf_val, category_to_label=train_base.category_to_label)
+    train_base = INatDataset(train_json, train_img_dir, transform=tf_train_std, cache_in_ram=cache_in_ram)
+    val_base = INatDataset(val_json, val_img_dir, transform=tf_val, category_to_label=train_base.category_to_label, cache_in_ram=cache_in_ram)
 
     NUM_CLASSES = len(train_base.category_to_label)
-    print(f"[*] Dataset cargado: {len(train_base)} train | {len(val_base)} val | {NUM_CLASSES} clases.")
+    print(f"[*] Dataset cargado: {len(train_base)} train | {len(val_base)} val | {NUM_CLASSES} clases biológicas.")
+
 
     tracker = ExperimentTracker(log_dir=str(ROOT_DIR / "logs"))
     criterion_ce = build_criterion("cross_entropy")
