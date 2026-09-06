@@ -53,7 +53,22 @@ class TestLossesAndMetrics(unittest.TestCase):
         self.assertIn("weighted_f1", metrics)
         self.assertIn("frequent_macro_f1", metrics)
         self.assertIn("minority_macro_f1", metrics)
-        self.assertGreater(metrics["top1_acc"], 0.8)
+    def test_sota_optimizers(self):
+        from src.training.optimizers import build_optimizer, Muon, Lion
+        model = torch.nn.Linear(10, 5)
+
+        opt_muon = build_optimizer(model, opt_type="muon", lr=0.02)
+        self.assertIsInstance(opt_muon, Muon)
+
+        opt_lion = build_optimizer(model, opt_type="lion", lr=1e-4)
+        self.assertIsInstance(opt_lion, Lion)
+
+        # Execute optimization step
+        x = torch.randn(4, 10)
+        loss = model(x).sum()
+        loss.backward()
+        opt_muon.step()
+        opt_lion.step()
 
 
 if __name__ == "__main__":

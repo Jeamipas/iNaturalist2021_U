@@ -48,6 +48,13 @@ class Trainer:
             self.device = device
 
         self.model.to(self.device)
+        if self.device.type == "cuda":
+            # Channels Last memory format yields ~20-35% speedup on modern NVIDIA GPUs
+            try:
+                self.model = self.model.to(memory_format=torch.channels_last)
+            except Exception:
+                pass
+            torch.backends.cudnn.benchmark = True
 
         # Automatic Mixed Precision for memory efficiency on 4GB VRAM
         self.use_amp = use_amp and (self.device.type == "cuda")
@@ -61,7 +68,10 @@ class Trainer:
         total_samples = 0
 
         for images, targets in dataloader:
-            images = images.to(self.device, non_blocking=True)
+            if self.device.type == "cuda" and images.ndim == 4:
+                images = images.to(self.device, memory_format=torch.channels_last, non_blocking=True)
+            else:
+                images = images.to(self.device, non_blocking=True)
             targets = targets.to(self.device, non_blocking=True)
 
             self.optimizer.zero_grad(set_to_none=True)
@@ -96,7 +106,10 @@ class Trainer:
         all_probs = []
 
         for images, targets in dataloader:
-            images = images.to(self.device, non_blocking=True)
+            if self.device.type == "cuda" and images.ndim == 4:
+                images = images.to(self.device, memory_format=torch.channels_last, non_blocking=True)
+            else:
+                images = images.to(self.device, non_blocking=True)
             targets = targets.to(self.device, non_blocking=True)
 
             with torch.amp.autocast("cuda", enabled=self.use_amp):
