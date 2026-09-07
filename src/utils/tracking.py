@@ -105,23 +105,35 @@ class ExperimentTracker:
         self.save_history()
         return record
 
-    def to_dataframe(self) -> pd.DataFrame:
-        """Returns the experiments table as a pandas DataFrame."""
-        return pd.DataFrame(self.experiments)
+    def to_dataframe(self, sort_by: Optional[str] = "macro_f1", ascending: bool = False) -> pd.DataFrame:
+        """Returns the experiments table as a pandas DataFrame, sorted descending by default."""
+        df = pd.DataFrame(self.experiments)
+        if df.empty:
+            return df
+        if sort_by and sort_by in df.columns:
+            secondary = ["top1_acc"] if "top1_acc" in df.columns and sort_by != "top1_acc" else []
+            df = df.sort_values(
+                by=[sort_by] + secondary,
+                ascending=[ascending] + [ascending] * len(secondary)
+            ).reset_index(drop=True)
+        return df
 
-    def to_markdown_table(self) -> str:
-        """Generates the Markdown table adhering to the project rubric."""
-        df = self.to_dataframe()
+    def to_markdown_table(self, sort_by: Optional[str] = "macro_f1", ascending: bool = False) -> str:
+        """Generates the Markdown table adhering to the project rubric, sorted descending by metric."""
+        df = self.to_dataframe(sort_by=sort_by, ascending=ascending)
         if df.empty:
             return "No experiments recorded yet."
-        
+
+        df.insert(0, "rank", [f"#{i+1}" for i in range(len(df))])
+
         display_cols = [
-            "exp_id", "model", "optimizer", "regularization",
+            "rank", "exp_id", "model", "optimizer", "regularization",
             "augmentation", "transfer_learning", "long_tail",
             "top1_acc", "top5_acc", "macro_f1", "time_sec", "peak_vram_mb", "params_m"
         ]
         available_cols = [c for c in display_cols if c in df.columns]
         sub_df = df[available_cols].rename(columns={
+            "rank": "Rank",
             "exp_id": "ID",
             "model": "Modelo",
             "optimizer": "Optimizador",
@@ -138,18 +150,20 @@ class ExperimentTracker:
         })
         return sub_df.to_markdown(index=False)
 
-    def save_markdown_table(self, file_path: str) -> None:
+    def save_markdown_table(self, file_path: str, sort_by: Optional[str] = "macro_f1", ascending: bool = False) -> None:
         """Saves the formatted Markdown table directly to disk."""
         path = Path(file_path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        table_str = self.to_markdown_table()
+        table_str = self.to_markdown_table(sort_by=sort_by, ascending=ascending)
         with open(path, "w", encoding="utf-8") as f:
             f.write(table_str)
 
-    def save_json(self, file_path: str) -> None:
-        """Saves all experiments records as JSON to disk."""
+    def save_json(self, file_path: str, sort_by: Optional[str] = "macro_f1", ascending: bool = False) -> None:
+        """Saves all experiments records as JSON to disk, sorted descending."""
         path = Path(file_path)
         path.parent.mkdir(parents=True, exist_ok=True)
+        df = self.to_dataframe(sort_by=sort_by, ascending=ascending)
+        records = df.to_dict(orient="records") if not df.empty else self.experiments
         with open(path, "w", encoding="utf-8") as f:
-            json.dump(self.experiments, f, indent=2)
+            json.dump(records, f, indent=2)
 
