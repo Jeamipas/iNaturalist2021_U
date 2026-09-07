@@ -978,5 +978,175 @@
       "epochs": 8,
       "scheduler": "CosineAnnealingLR"
     }
+  },
+  {
+    "exp_id": "S01",
+    "model": "ConvNeXt-Tiny (224px)",
+    "optimizer": "AdamW + CosineLR",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard (224px)",
+    "transfer_learning": "Partial FT (stages.3)",
+    "long_tail": "No",
+    "top1_acc": 87.4,
+    "top5_acc": 98.0,
+    "macro_f1": 87.44,
+    "weighted_f1": 87.44,
+    "time_sec": 105.2,
+    "peak_vram_mb": 583.4,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 8,
+      "resolution": 224,
+      "best_epoch": 6
+    }
+  },
+  {
+    "exp_id": "S02",
+    "model": "ConvNeXt-Tiny (224px)",
+    "optimizer": "Hybrid (Muon+AdamW)",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard (224px)",
+    "transfer_learning": "Partial FT + Hybrid",
+    "long_tail": "No",
+    "top1_acc": 87.6,
+    "top5_acc": 98.0,
+    "macro_f1": 87.52,
+    "weighted_f1": 87.52,
+    "time_sec": 129.6,
+    "peak_vram_mb": 852.2,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 8,
+      "resolution": 224,
+      "best_epoch": 8
+    }
+  },
+  {
+    "exp_id": "S03",
+    "model": "ConvNeXt-Tiny (224px)",
+    "optimizer": "AdamW (Deep FT)",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard (224px)",
+    "transfer_learning": "Deep Partial (Stages 3+4)",
+    "long_tail": "No",
+    "top1_acc": 88.4,
+    "top5_acc": 98.0,
+    "macro_f1": 88.28,
+    "weighted_f1": 88.28,
+    "time_sec": 117.0,
+    "peak_vram_mb": 1778.9,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 8,
+      "resolution": 224,
+      "best_epoch": 6
+    }
+  },
+  {
+    "exp_id": "S04",
+    "model": "ConvNeXt-Tiny (CosineHead) (224px)",
+    "optimizer": "AdamW + CosineLR",
+    "regularization": "LayerNorm + ArcNorm",
+    "augmentation": "Standard (224px)",
+    "transfer_learning": "Partial FT + Cosine Head",
+    "long_tail": "No",
+    "top1_acc": 88.0,
+    "top5_acc": 97.8,
+    "macro_f1": 87.9,
+    "weighted_f1": 87.9,
+    "time_sec": 90.5,
+    "peak_vram_mb": 1590.5,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 8,
+      "resolution": 224,
+      "best_epoch": 8
+    }
+  },
+  {
+    "exp_id": "S05",
+    "model": "Swin-T (Transformer) (224px)",
+    "optimizer": "AdamW + CosineLR",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard (224px)",
+    "transfer_learning": "Partial FT (Shifted Window)",
+    "long_tail": "No",
+    "top1_acc": 85.2,
+    "top5_acc": 97.8,
+    "macro_f1": 85.17,
+    "weighted_f1": 85.17,
+    "time_sec": 105.2,
+    "peak_vram_mb": 2038.4,
+    "params_m": 27.56,
+    "extra": {
+      "epochs": 8,
+      "resolution": 224,
+      "best_epoch": 6
+    }
+  },
+  {
+    "exp_id": "S06",
+    "model": "Swin-T (Transformer) (224px)",
+    "optimizer": "Hybrid (Muon+AdamW)",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard (224px)",
+    "transfer_learning": "Partial FT + Hybrid",
+    "long_tail": "No",
+    "top1_acc": 91.0,
+    "top5_acc": 98.2,
+    "macro_f1": 90.94,
+    "weighted_f1": 90.94,
+    "time_sec": 147.5,
+    "peak_vram_mb": 2309.5,
+    "params_m": 27.56,
+    "extra": {
+      "epochs": 8,
+      "resolution": 224,
+      "best_epoch": 7
+    }
+  },
+  {
+    "exp_id": "S07",
+    "model": "ConvNeXt-Tiny (224px)",
+    "optimizer": "AdamW + CutMix + LS",
+    "regularization": "LayerNorm + LabelSmooth(0.1)",
+    "augmentation": "+ CutMix/MixUp (224px)",
+    "transfer_learning": "Partial FT (stages.3)",
+    "long_tail": "No",
+    "top1_acc": 87.4,
+    "top5_acc": 98.2,
+    "macro_f1": 87.29,
+    "weighted_f1": 87.29,
+    "time_sec": 91.4,
+    "peak_vram_mb": 2512.7,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 8,
+      "resolution": 224,
+      "best_epoch": 8
+    }
+  },
+  {
+    "exp_id": "S08",
+    "model": "Ensemble (ConvNeXt + Swin-T)",
+    "optimizer": "Blending + TTA",
+    "regularization": "LayerNorm (Dual)",
+    "augmentation": "Test-Time Augmentation",
+    "transfer_learning": "Dual Ensemble",
+    "long_tail": "No",
+    "top1_acc": 88.2,
+    "top5_acc": 97.8,
+    "macro_f1": 88.2,
+    "weighted_f1": 88.2,
+    "time_sec": 5.1,
+    "peak_vram_mb": 2681.5,
+    "params_m": 55.42,
+    "extra": {
+      "components": [
+        "S01_ConvNeXt-Tiny",
+        "S05_Swin-T"
+      ],
+      "tta": true
+    }
   }
 ]

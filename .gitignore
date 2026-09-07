@@ -16,6 +16,8 @@ data/
 dataset/
 datasets/
 raw_data/
+recursos/
+scratch/
 *.tar.gz
 *.tar
 *.zip

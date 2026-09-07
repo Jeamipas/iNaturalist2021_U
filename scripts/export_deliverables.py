@@ -42,14 +42,14 @@ def main():
     # 2. Cargar historiales de TensorBoard para los modelos más representativos
     tb_dir = ROOT_DIR / "logs" / "tb_runs"
     runs_to_plot = [
-        ("CX02_ConvNeXt-Tiny_(Pretrained)_Adam", "CX02: ConvNeXt-Tiny | Adam (79.2%)"),
-        ("CX01_ConvNeXt-Tiny_(Pretrained)_SGD+Momentum", "CX01: ConvNeXt-Tiny | SGD+M (78.8%)"),
-        ("CX07_ConvNeXt-Tiny_(Pretrained)_AdamW", "CX07: ConvNeXt-Tiny | 8 Ep + CosineLR (78.8%)"),
-        ("CX05_ConvNeXt-Tiny_(Pretrained)_Lion", "CX05: ConvNeXt-Tiny | Lion (77.6%)"),
-        ("CX04_ConvNeXt-Tiny_(Pretrained)_Muon", "CX04: ConvNeXt-Tiny | Muon (75.6%)"),
-        ("T05_ResNet-50_(Pretrained)_AdamW", "T05: ResNet-50 | AdamW (68.0%)"),
-        ("T08_ResNet-18_(Pretrained)_Muon", "T08: ResNet-18 | Muon (62.6%)"),
-        ("B01_MLP_(32x32)_Adam", "B01: MLP Baseline (9.8%)")
+        ("S06_Swin-T_(Transformer)_Hybrid", "S06: Swin-T | Hybrid Muon+AdamW (91.0%)"),
+        ("S03_ConvNeXt-Tiny_AdamW", "S03: ConvNeXt-Tiny | Deep Partial FT (88.4%)"),
+        ("S04_ConvNeXt-Tiny_(CosineHead)_AdamW", "S04: ConvNeXt-Tiny | Cosine Head (88.0%)"),
+        ("S01_ConvNeXt-Tiny_AdamW", "S01: ConvNeXt-Tiny | 224px Native (87.4%)"),
+        ("S05_Swin-T_(Transformer)_AdamW", "S05: Swin-T | AdamW (85.2%)"),
+        ("CX02_ConvNeXt-Tiny_(Pretrained)_Adam", "CX02: ConvNeXt-Tiny | 128px Adam (79.2%)"),
+        ("T05_ResNet-50_(Pretrained)_AdamW", "T05: ResNet-50 | 128px (68.0%)"),
+        ("B01_MLP_(32x32)_Adam", "B01: MLP Baseline | 32px (9.8%)")
     ]
 
     histories = {}

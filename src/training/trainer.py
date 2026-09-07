@@ -7,6 +7,7 @@ Features:
 - Metric computation: Top-1, Top-5, Macro F1, Weighted F1, and Long-Tail tier breakdown
 """
 
+import copy
 import time
 from typing import Dict, List, Optional, Tuple, Union
 import numpy as np
@@ -234,6 +235,7 @@ class Trainer:
         }
 
         best_val_metrics: Dict[str, float] = {}
+        best_model_state = copy.deepcopy(self.model.state_dict())
         start_time = time.time()
 
         for epoch in range(1, epochs + 1):
@@ -279,6 +281,7 @@ class Trainer:
 
             if not best_val_metrics or val_metrics["macro_f1"] >= best_val_metrics.get("macro_f1", 0.0):
                 best_val_metrics = {**val_metrics, "best_epoch": epoch, "val_loss": val_loss}
+                best_model_state = copy.deepcopy(self.model.state_dict())
 
             if verbose:
                 print(
@@ -297,8 +300,12 @@ class Trainer:
                         print(f"[*] Early stopping triggered at epoch {epoch}.")
                     break
 
-        # Restore best weights if configured
-        if self.early_stopping is not None and self.early_stopping.restore_best_weights:
+        # Always restore the exact weights of the best epoch to guarantee peak evaluation
+        if best_model_state is not None:
+            self.model.load_state_dict(best_model_state)
+            if verbose:
+                print(f"[OK] Pesos del mejor modelo (Época {best_val_metrics.get('best_epoch', '-')}) restaurados en memoria.")
+        elif self.early_stopping is not None and self.early_stopping.restore_best_weights:
             self.early_stopping.restore(self.model)
 
         if self.writer is not None:

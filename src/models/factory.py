@@ -46,16 +46,18 @@ def build_model(
     elif mtype in ["cnn_custom", "mini_inat_cnn"]:
         return MiniINatCNN(num_classes=num_classes, **kwargs)
 
-    elif mtype in ["resnet18", "resnet50", "convnext_tiny", "efficientnet_b0"]:
+    elif mtype in ["resnet18", "resnet50", "convnext_tiny", "efficientnet_b0", "swin_t", "swin_tiny", "swin"]:
         mode = kwargs.get("mode", "feature_extraction")
         pretrained = kwargs.get("pretrained", True)
         dropout_rate = kwargs.get("dropout_rate", 0.2)
+        use_cosine_head = kwargs.get("use_cosine_head", False)
         return TransferCNN(
             backbone_name=mtype,
             num_classes=num_classes,
             mode=mode,
             pretrained=pretrained,
-            dropout_rate=dropout_rate
+            dropout_rate=dropout_rate,
+            use_cosine_head=use_cosine_head
         )
 
     else:
