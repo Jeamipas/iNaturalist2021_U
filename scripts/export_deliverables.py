@@ -42,13 +42,14 @@ def main():
     # 2. Cargar historiales de TensorBoard para los modelos más representativos
     tb_dir = ROOT_DIR / "logs" / "tb_runs"
     runs_to_plot = [
-        ("T07_ConvNeXt-Tiny_(Pretrained)_AdamW", "T07: ConvNeXt-Tiny (Partial FT) | AdamW"),
-        ("T05_ResNet-50_(Pretrained)_AdamW", "T05: ResNet-50 (Partial FT) | AdamW"),
-        ("T08_ResNet-18_(Pretrained)_Muon", "T08: ResNet-18 (Partial FT) | Muon"),
-        ("T02_ResNet-18_(Pretrained)_AdamW", "T02: ResNet-18 (Partial FT) | AdamW"),
-        ("O05_ResNet-18_Muon", "O05: ResNet-18 (Scratch) | Muon"),
-        ("A02_ResNet-18_(Scratch)_AdamW", "A02: ResNet-18 (Scratch) | AdamW"),
-        ("B01_MLP_(32x32)_Adam", "B01: MLP Baseline (32x32) | Adam")
+        ("CX02_ConvNeXt-Tiny_(Pretrained)_Adam", "CX02: ConvNeXt-Tiny | Adam (79.2%)"),
+        ("CX01_ConvNeXt-Tiny_(Pretrained)_SGD+Momentum", "CX01: ConvNeXt-Tiny | SGD+M (78.8%)"),
+        ("CX07_ConvNeXt-Tiny_(Pretrained)_AdamW", "CX07: ConvNeXt-Tiny | 8 Ep + CosineLR (78.8%)"),
+        ("CX05_ConvNeXt-Tiny_(Pretrained)_Lion", "CX05: ConvNeXt-Tiny | Lion (77.6%)"),
+        ("CX04_ConvNeXt-Tiny_(Pretrained)_Muon", "CX04: ConvNeXt-Tiny | Muon (75.6%)"),
+        ("T05_ResNet-50_(Pretrained)_AdamW", "T05: ResNet-50 | AdamW (68.0%)"),
+        ("T08_ResNet-18_(Pretrained)_Muon", "T08: ResNet-18 | Muon (62.6%)"),
+        ("B01_MLP_(32x32)_Adam", "B01: MLP Baseline (9.8%)")
     ]
 
     histories = {}

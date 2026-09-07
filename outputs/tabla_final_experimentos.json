@@ -818,5 +818,165 @@
     "time_sec": 33.5,
     "peak_vram_mb": 2472.0,
     "params_m": 11.2
+  },
+  {
+    "exp_id": "CX01",
+    "model": "ConvNeXt-Tiny (Pretrained)",
+    "optimizer": "SGD+Momentum (1e-2)",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard",
+    "transfer_learning": "Partial FT (stages.3)",
+    "long_tail": "No",
+    "top1_acc": 78.8,
+    "top5_acc": 93.8,
+    "macro_f1": 79.04,
+    "weighted_f1": 79.04,
+    "time_sec": 50.3,
+    "peak_vram_mb": 295.6,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 5,
+      "scheduler": "None"
+    }
+  },
+  {
+    "exp_id": "CX02",
+    "model": "ConvNeXt-Tiny (Pretrained)",
+    "optimizer": "Adam (1e-3)",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard",
+    "transfer_learning": "Partial FT (stages.3)",
+    "long_tail": "No",
+    "top1_acc": 79.2,
+    "top5_acc": 94.8,
+    "macro_f1": 79.27,
+    "weighted_f1": 79.27,
+    "time_sec": 34.2,
+    "peak_vram_mb": 500.2,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 5,
+      "scheduler": "None"
+    }
+  },
+  {
+    "exp_id": "CX03",
+    "model": "ConvNeXt-Tiny (Pretrained)",
+    "optimizer": "AdamW (Diff LR)",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard",
+    "transfer_learning": "Partial FT (stages.3)",
+    "long_tail": "No",
+    "top1_acc": 76.6,
+    "top5_acc": 94.2,
+    "macro_f1": 76.76,
+    "weighted_f1": 76.76,
+    "time_sec": 35.2,
+    "peak_vram_mb": 716.9,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 5,
+      "scheduler": "None"
+    }
+  },
+  {
+    "exp_id": "CX04",
+    "model": "ConvNeXt-Tiny (Pretrained)",
+    "optimizer": "Muon (lr=0.01)",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard",
+    "transfer_learning": "Partial FT + Muon",
+    "long_tail": "No",
+    "top1_acc": 75.6,
+    "top5_acc": 92.8,
+    "macro_f1": 75.32,
+    "weighted_f1": 75.32,
+    "time_sec": 57.1,
+    "peak_vram_mb": 895.4,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 5,
+      "scheduler": "None"
+    }
+  },
+  {
+    "exp_id": "CX05",
+    "model": "ConvNeXt-Tiny (Pretrained)",
+    "optimizer": "Lion (1e-4)",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard",
+    "transfer_learning": "Partial FT + Lion",
+    "long_tail": "No",
+    "top1_acc": 77.6,
+    "top5_acc": 95.4,
+    "macro_f1": 77.34,
+    "weighted_f1": 77.34,
+    "time_sec": 34.3,
+    "peak_vram_mb": 1040.8,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 5,
+      "scheduler": "None"
+    }
+  },
+  {
+    "exp_id": "CX06",
+    "model": "ConvNeXt-Tiny (Scratch)",
+    "optimizer": "Muon (lr=0.02)",
+    "regularization": "LayerNorm+DropPath",
+    "augmentation": "Standard",
+    "transfer_learning": "No",
+    "long_tail": "No",
+    "top1_acc": 7.0,
+    "top5_acc": 24.4,
+    "macro_f1": 4.62,
+    "weighted_f1": 4.62,
+    "time_sec": 31.7,
+    "peak_vram_mb": 1121.9,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 5,
+      "scheduler": "None"
+    }
+  },
+  {
+    "exp_id": "CX07",
+    "model": "ConvNeXt-Tiny (Pretrained)",
+    "optimizer": "AdamW + CosineLR",
+    "regularization": "LayerNorm",
+    "augmentation": "Standard",
+    "transfer_learning": "Partial FT (8 Epochs)",
+    "long_tail": "No",
+    "top1_acc": 78.8,
+    "top5_acc": 94.6,
+    "macro_f1": 78.82,
+    "weighted_f1": 78.82,
+    "time_sec": 55.2,
+    "peak_vram_mb": 1363.1,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 8,
+      "scheduler": "CosineAnnealingLR"
+    }
+  },
+  {
+    "exp_id": "CX08",
+    "model": "ConvNeXt-Tiny (Pretrained)",
+    "optimizer": "AdamW + CutMix + CosineLR",
+    "regularization": "LayerNorm",
+    "augmentation": "+ CutMix / MixUp (8 Epochs)",
+    "transfer_learning": "Partial FT (8 Epochs)",
+    "long_tail": "No",
+    "top1_acc": 77.4,
+    "top5_acc": 95.6,
+    "macro_f1": 77.36,
+    "weighted_f1": 77.36,
+    "time_sec": 55.7,
+    "peak_vram_mb": 1578.4,
+    "params_m": 27.86,
+    "extra": {
+      "epochs": 8,
+      "scheduler": "CosineAnnealingLR"
+    }
   }
 ]
