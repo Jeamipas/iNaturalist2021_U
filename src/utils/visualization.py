@@ -265,6 +265,9 @@ def plot_multiexperiment_4grid(
     if save_path:
         Path(save_path).parent.mkdir(parents=True, exist_ok=True)
         plt.savefig(save_path, bbox_inches="tight", dpi=300)
-    plt.show()
+        plt.close()
+    else:
+        plt.show()
+
 
 

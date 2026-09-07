@@ -137,3 +137,19 @@ class ExperimentTracker:
             "params_m": "Params (M)"
         })
         return sub_df.to_markdown(index=False)
+
+    def save_markdown_table(self, file_path: str) -> None:
+        """Saves the formatted Markdown table directly to disk."""
+        path = Path(file_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        table_str = self.to_markdown_table()
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(table_str)
+
+    def save_json(self, file_path: str) -> None:
+        """Saves all experiments records as JSON to disk."""
+        path = Path(file_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(self.experiments, f, indent=2)
+
