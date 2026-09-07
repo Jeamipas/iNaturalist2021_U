@@ -1,0 +1,80 @@
+{
+  "status": "COMPLETED",
+  "current_exp": null,
+  "current_epoch": 15,
+  "total_epochs": 15,
+  "last_update": "2026-09-06T21:41:29.437271",
+  "message": "Suite de Scratch completada con éxito.",
+  "completed_experiments": [
+    {
+      "exp_id": "SC01",
+      "name": "ConvNeXt-Tiny (Scratch, 224px)",
+      "optimizer": "AdamW (lr=0.001)",
+      "best_epoch": 12,
+      "total_epochs": 15,
+      "top1_acc": 0.174,
+      "macro_f1": 0.13858046689727585,
+      "top5_acc": 0.462,
+      "animalia_acc": 0.16071428571428573,
+      "plantae_acc": 0.19090909090909092,
+      "training_time": 280.3341064453125,
+      "peak_vram_mb": 2404.81201171875
+    },
+    {
+      "exp_id": "SC02",
+      "name": "ConvNeXt-Tiny (Scratch, 224px)",
+      "optimizer": "Hybrid (Muon+AdamW)",
+      "best_epoch": 15,
+      "total_epochs": 15,
+      "top1_acc": 0.338,
+      "macro_f1": 0.32970064594822973,
+      "top5_acc": 0.634,
+      "animalia_acc": 0.3142857142857143,
+      "plantae_acc": 0.36818181818181817,
+      "training_time": 405.2570357322693,
+      "peak_vram_mb": 2297.8349609375
+    },
+    {
+      "exp_id": "SC03",
+      "name": "ConvNeXt-Tiny (Scratch, 224px)",
+      "optimizer": "Lion (Google Brain)",
+      "best_epoch": 14,
+      "total_epochs": 15,
+      "top1_acc": 0.19,
+      "macro_f1": 0.15760345950060525,
+      "top5_acc": 0.482,
+      "animalia_acc": 0.16785714285714284,
+      "plantae_acc": 0.21818181818181817,
+      "training_time": 258.2423005104065,
+      "peak_vram_mb": 2297.56787109375
+    },
+    {
+      "exp_id": "SC04",
+      "name": "Swin-T (Scratch, 224px)",
+      "optimizer": "AdamW (lr=0.0005)",
+      "best_epoch": 13,
+      "total_epochs": 15,
+      "top1_acc": 0.13,
+      "macro_f1": 0.09844018502777793,
+      "top5_acc": 0.396,
+      "animalia_acc": 0.10714285714285714,
+      "plantae_acc": 0.1590909090909091,
+      "training_time": 303.46620750427246,
+      "peak_vram_mb": 2676.3544921875
+    },
+    {
+      "exp_id": "SC05",
+      "name": "Swin-T (Scratch, 224px)",
+      "optimizer": "Hybrid (Muon+AdamW)",
+      "best_epoch": 14,
+      "total_epochs": 15,
+      "top1_acc": 0.43,
+      "macro_f1": 0.42885638840004164,
+      "top5_acc": 0.774,
+      "animalia_acc": 0.4,
+      "plantae_acc": 0.4681818181818182,
+      "training_time": 494.96024203300476,
+      "peak_vram_mb": 2572.4189453125
+    }
+  ]
+}
