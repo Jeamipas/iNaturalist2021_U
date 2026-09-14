@@ -78,8 +78,9 @@ def evaluate_model(
 
 def main():
     parser = argparse.ArgumentParser(description="Evaluar modelo en dataset de validación.")
-    parser.add_argument("--checkpoint", type=str, default="checkpoints/best_E8_ResNet18_PartialFT_AdamW.pt", help="Ruta al checkpoint .pt")
-    parser.add_argument("--data_dir", type=str, default="../recursos/sample_inat", help="Directorio raíz de datos")
+    parser.add_argument("--model_name", type=str, default="auto", help="Nombre de arquitectura ('swin_t', 'convnext_tiny', 'resnet18', etc. o 'auto')")
+    parser.add_argument("--checkpoint", type=str, default="checkpoints/top_01_S06_Swin-T__Transformer___224px__f1_0.9094.pt", help="Ruta al checkpoint .pt")
+    parser.add_argument("--data_dir", type=str, default="../recursos/inat2021_sample", help="Directorio raíz de datos")
     parser.add_argument("--batch_size", type=int, default=64, help="Tamaño de lote para evaluación")
     parser.add_argument("--num_workers", type=int, default=4, help="Trabajadores DataLoader")
     parser.add_argument("--no_amp", action="store_true", help="Desactivar AMP fp16")
@@ -120,21 +121,47 @@ def main():
 
     # Load checkpoint
     ckpt_path = Path(args.checkpoint)
-    if not ckpt_path.exists():
-        print(f"[!] Checkpoint {ckpt_path} no encontrado. Creando modelo de prueba...")
-        num_classes = len(val_dataset.category_to_label)
-        model = create_model("resnet18", num_classes=num_classes, pretrained=True)
-    else:
+    num_classes = len(val_dataset.category_to_label)
+    model_name = args.model_name
+
+    if ckpt_path.exists():
         print(f"[*] Cargando pesos desde {ckpt_path}...")
         ckpt = torch.load(ckpt_path, map_location="cpu")
-        num_classes = len(val_dataset.category_to_label)
-        model = create_model("resnet18", num_classes=num_classes, pretrained=False)
+        
+        # Auto-detect model_name from checkpoint or path if set to auto
+        if model_name == "auto":
+            if isinstance(ckpt, dict) and "model_name" in ckpt:
+                raw_name = ckpt["model_name"].lower()
+            else:
+                raw_name = ckpt_path.name.lower()
+            
+            if "swin" in raw_name:
+                model_name = "swin_t"
+            elif "convnext" in raw_name:
+                model_name = "convnext_tiny"
+            elif "resnet50" in raw_name:
+                model_name = "resnet50"
+            elif "mini" in raw_name or "cnn" in raw_name:
+                model_name = "cnn_custom"
+            elif "mlp" in raw_name:
+                model_name = "mlp"
+            else:
+                model_name = "resnet18"
+        
+        print(f"[*] Arquitectura detectada/configurada: {model_name}")
+        model = create_model(model_name, num_classes=num_classes, pretrained=False)
+        
         if isinstance(ckpt, dict) and "model_state_dict" in ckpt:
             model.load_state_dict(ckpt["model_state_dict"])
         elif isinstance(ckpt, dict) and "state_dict" in ckpt:
             model.load_state_dict(ckpt["state_dict"])
         else:
             model.load_state_dict(ckpt)
+    else:
+        if model_name == "auto":
+            model_name = "convnext_tiny"
+        print(f"[!] Checkpoint {ckpt_path} no encontrado. Creando modelo de prueba {model_name}...")
+        model = create_model(model_name, num_classes=num_classes, pretrained=True)
 
     model = model.to(device)
     if device.type == "cuda":
