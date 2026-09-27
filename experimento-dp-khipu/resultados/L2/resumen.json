@@ -1,0 +1,20 @@
+{
+  "id": "L2",
+  "descripcion": "long-tail sin correcci\u00f3n",
+  "parametros": 43998032,
+  "parametros_entrenables": 43998032,
+  "gflops": 2.710110208,
+  "imagenes_train": 120474,
+  "pasos_por_epoca": 470,
+  "gpu": "NVIDIA RTX A6000",
+  "val_loss": 6.085660002441406,
+  "val_top1": 0.21943,
+  "val_top5": 0.38923,
+  "val_f1_macro": 0.1751580929455949,
+  "val_f1_weighted": 0.17515809294559487,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 653.6142897605896,
+  "tiempo_por_epoca_s": 40.85089311003685,
+  "brecha_loss": 6.069426116380692
+}

@@ -1,0 +1,20 @@
+{
+  "id": "E02",
+  "descripcion": "MLP 64px (efecto de la resoluci\u00f3n de entrada)",
+  "parametros": 37522192,
+  "parametros_entrenables": 37522192,
+  "gflops": 0.075005952,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 976,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 2g.10gb",
+  "val_loss": 8.08187591796875,
+  "val_top1": 0.01001,
+  "val_top5": 0.03201,
+  "val_f1_macro": 0.005861803787045253,
+  "val_f1_weighted": 0.005861803787045253,
+  "mejor_epoca": 6,
+  "epocas_corridas": 8,
+  "tiempo_train_s": 295.1986813545227,
+  "tiempo_por_epoca_s": 36.89983516931534,
+  "brecha_loss": 2.686684961242676
+}

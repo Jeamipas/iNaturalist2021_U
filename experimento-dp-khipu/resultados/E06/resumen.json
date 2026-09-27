@@ -1,0 +1,20 @@
+{
+  "id": "E06",
+  "descripcion": "SGD sin momentum, lr 0.1",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 3g.20gb",
+  "val_loss": 4.805000895996094,
+  "val_top1": 0.17298,
+  "val_top5": 0.35553,
+  "val_f1_macro": 0.15766053093084453,
+  "val_f1_weighted": 0.1576605309308445,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 1135.7552058696747,
+  "tiempo_por_epoca_s": 70.98470036685467,
+  "brecha_loss": 0.5956471002197263
+}

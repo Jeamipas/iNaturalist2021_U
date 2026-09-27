@@ -1,0 +1,20 @@
+{
+  "id": "T2",
+  "descripcion": "B: Partial Fine-Tuning (layer4 + cabeza)",
+  "parametros": 43998032,
+  "parametros_entrenables": 35454736,
+  "gflops": 2.710110208,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 2g.10gb",
+  "val_loss": 3.205762961425781,
+  "val_top1": 0.43803,
+  "val_top5": 0.65874,
+  "val_f1_macro": 0.43483905575474346,
+  "val_f1_weighted": 0.43483905575474346,
+  "mejor_epoca": 15,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 2650.126889705658,
+  "tiempo_por_epoca_s": 165.63293060660362,
+  "brecha_loss": 3.059728735604286
+}

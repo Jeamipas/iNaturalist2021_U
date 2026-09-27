@@ -1,0 +1,20 @@
+{
+  "id": "T1",
+  "descripcion": "A: Feature Extraction (backbone congelado)",
+  "parametros": 43998032,
+  "parametros_entrenables": 20490000,
+  "gflops": 2.710110208,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 2g.10gb",
+  "val_loss": 4.149679267578125,
+  "val_top1": 0.26679,
+  "val_top5": 0.47849,
+  "val_f1_macro": 0.2564299227596841,
+  "val_f1_weighted": 0.25642992275968407,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 2207.324869632721,
+  "tiempo_por_epoca_s": 137.95780435204506,
+  "brecha_loss": 1.4926147778320313
+}

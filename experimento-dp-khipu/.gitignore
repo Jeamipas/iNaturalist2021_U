@@ -1,0 +1,5 @@
+__pycache__/
+.ipynb_checkpoints/
+logs/
+# De resultados/ solo se versiona lo liviano (json + predicciones); los pesos no.
+resultados/**/*.pt

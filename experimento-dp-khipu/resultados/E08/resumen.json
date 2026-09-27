@@ -1,0 +1,20 @@
+{
+  "id": "E08",
+  "descripcion": "SGD+momentum, lr 0.5",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 3g.20gb",
+  "val_loss": 3.8791389770507814,
+  "val_top1": 0.34668,
+  "val_top5": 0.56633,
+  "val_f1_macro": 0.3426954714611946,
+  "val_f1_weighted": 0.3426954714611946,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 1162.7347276210785,
+  "tiempo_por_epoca_s": 72.6709204763174,
+  "brecha_loss": 3.047790140628815
+}

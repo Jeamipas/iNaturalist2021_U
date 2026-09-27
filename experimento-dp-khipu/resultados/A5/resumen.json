@@ -1,0 +1,20 @@
+{
+  "id": "A5",
+  "descripcion": "+ BN + Dropout + aumento fuerte + wd 5e-5",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB",
+  "val_loss": 3.768514443359375,
+  "val_top1": 0.2939,
+  "val_top5": 0.51457,
+  "val_f1_macro": 0.28318660544397123,
+  "val_f1_weighted": 0.28318660544397123,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 871.7775011062622,
+  "tiempo_por_epoca_s": 54.48609381914139,
+  "brecha_loss": 0.4610891828155519
+}

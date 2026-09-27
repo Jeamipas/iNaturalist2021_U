@@ -1,0 +1,20 @@
+{
+  "id": "A6",
+  "descripcion": "BN + aumento b\u00e1sico (sin dropout, sin wd)",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB",
+  "val_loss": 4.080362705078125,
+  "val_top1": 0.29819,
+  "val_top5": 0.51587,
+  "val_f1_macro": 0.29217262110239217,
+  "val_f1_weighted": 0.29217262110239217,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 599.3993244171143,
+  "tiempo_por_epoca_s": 37.46245777606964,
+  "brecha_loss": 2.478369720993042
+}

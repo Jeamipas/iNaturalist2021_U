@@ -1,0 +1,20 @@
+{
+  "id": "E01",
+  "descripcion": "MLP 32px (baseline)",
+  "parametros": 18647824,
+  "parametros_entrenables": 18647824,
+  "gflops": 0.037257216,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 976,
+  "gpu": "NVIDIA RTX A6000",
+  "val_loss": 8.665730400390625,
+  "val_top1": 0.01086,
+  "val_top5": 0.03387,
+  "val_f1_macro": 0.008389417630265584,
+  "val_f1_weighted": 0.008389417630265582,
+  "mejor_epoca": 6,
+  "epocas_corridas": 10,
+  "tiempo_train_s": 500.6567895412445,
+  "tiempo_por_epoca_s": 50.06567895412445,
+  "brecha_loss": 2.801762981719971
+}

@@ -1,0 +1,20 @@
+{
+  "id": "T4",
+  "descripcion": "C + aumento fuerte + label smoothing 0.1 (mejor modelo)",
+  "parametros": 43998032,
+  "parametros_entrenables": 43998032,
+  "gflops": 2.710110208,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 3g.20gb",
+  "val_loss": 2.724644912109375,
+  "val_top1": 0.50008,
+  "val_top5": 0.71659,
+  "val_f1_macro": 0.49702631299265027,
+  "val_f1_weighted": 0.4970263129926502,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 3277.599417448044,
+  "tiempo_por_epoca_s": 204.84996359050274,
+  "brecha_loss": 0.9042290576553347
+}

@@ -1,0 +1,20 @@
+{
+  "id": "E11",
+  "descripcion": "Adam, lr 1e-2",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 3g.20gb",
+  "val_loss": 4.9150862719726565,
+  "val_top1": 0.16697,
+  "val_top5": 0.34533,
+  "val_f1_macro": 0.15328804178797584,
+  "val_f1_weighted": 0.15328804178797584,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 1184.4802942276,
+  "tiempo_por_epoca_s": 74.030018389225,
+  "brecha_loss": 0.44955539962768576
+}

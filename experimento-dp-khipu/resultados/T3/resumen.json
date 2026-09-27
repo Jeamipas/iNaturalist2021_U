@@ -1,0 +1,20 @@
+{
+  "id": "T3",
+  "descripcion": "C: Full Fine-Tuning",
+  "parametros": 43998032,
+  "parametros_entrenables": 43998032,
+  "gflops": 2.710110208,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 2g.10gb",
+  "val_loss": 2.7651863342285155,
+  "val_top1": 0.5045,
+  "val_top5": 0.72089,
+  "val_f1_macro": 0.5014790117965285,
+  "val_f1_weighted": 0.5014790117965285,
+  "mejor_epoca": 15,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 6910.819693565369,
+  "tiempo_por_epoca_s": 431.92623084783554,
+  "brecha_loss": 2.6939293613791464
+}
