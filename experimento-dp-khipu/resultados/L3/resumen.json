@@ -1,0 +1,20 @@
+{
+  "id": "L3",
+  "descripcion": "long-tail + Weighted Cross-Entropy (1/n)",
+  "parametros": 43998032,
+  "parametros_entrenables": 43998032,
+  "gflops": 2.710110208,
+  "imagenes_train": 120474,
+  "pasos_por_epoca": 470,
+  "gpu": "NVIDIA RTX A6000",
+  "val_loss": 7.683753100585937,
+  "val_top1": 0.19469,
+  "val_top5": 0.33489,
+  "val_f1_macro": 0.15456086288481907,
+  "val_f1_weighted": 0.15456086288481904,
+  "mejor_epoca": 14,
+  "epocas_corridas": 15,
+  "tiempo_train_s": 613.1085147857666,
+  "tiempo_por_epoca_s": 40.873900985717775,
+  "brecha_loss": 7.661273362081051
+}

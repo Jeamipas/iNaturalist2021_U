@@ -1,0 +1,20 @@
+{
+  "id": "E03",
+  "descripcion": "ResNet-18 desde cero (receta base)",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA RTX A6000",
+  "val_loss": 3.8234598217773437,
+  "val_top1": 0.32353,
+  "val_top5": 0.54478,
+  "val_f1_macro": 0.3176957218900618,
+  "val_f1_weighted": 0.31769572189006173,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 1642.964575767517,
+  "tiempo_por_epoca_s": 102.68528598546982,
+  "brecha_loss": 2.4323566371536254
+}

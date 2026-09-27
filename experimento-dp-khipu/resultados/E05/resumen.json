@@ -1,0 +1,20 @@
+{
+  "id": "E05",
+  "descripcion": "EfficientNet-B0 desde cero",
+  "parametros": 16817548,
+  "parametros_entrenables": 16817548,
+  "gflops": 0.277569536,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA RTX A6000",
+  "val_loss": 3.2856726684570314,
+  "val_top1": 0.37018,
+  "val_top5": 0.59999,
+  "val_f1_macro": 0.36281423328141055,
+  "val_f1_weighted": 0.36281423328141055,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 2201.937118768692,
+  "tiempo_por_epoca_s": 137.62106992304325,
+  "brecha_loss": 1.4844549483489988
+}

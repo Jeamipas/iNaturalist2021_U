@@ -1,0 +1,20 @@
+{
+  "id": "L5",
+  "descripcion": "long-tail + Weighted Sampling",
+  "parametros": 43998032,
+  "parametros_entrenables": 43998032,
+  "gflops": 2.710110208,
+  "imagenes_train": 120474,
+  "pasos_por_epoca": 470,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 3g.20gb",
+  "val_loss": 6.702483793945312,
+  "val_top1": 0.19348,
+  "val_top5": 0.34272,
+  "val_f1_macro": 0.15463776349759345,
+  "val_f1_weighted": 0.15463776349759345,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 775.0583517551422,
+  "tiempo_por_epoca_s": 48.44114698469639,
+  "brecha_loss": 6.600353380944729
+}

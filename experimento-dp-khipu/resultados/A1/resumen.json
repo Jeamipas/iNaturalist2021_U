@@ -1,0 +1,20 @@
+{
+  "id": "A1",
+  "descripcion": "sin BN, sin dropout, sin aumento, sin wd",
+  "parametros": 16296912,
+  "parametros_entrenables": 16296912,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 3g.20gb",
+  "val_loss": 6.234327775878906,
+  "val_top1": 0.08251,
+  "val_top5": 0.20331,
+  "val_f1_macro": 0.07353995289483503,
+  "val_f1_weighted": 0.07353995289483503,
+  "mejor_epoca": 10,
+  "epocas_corridas": 12,
+  "tiempo_train_s": 665.0406038761139,
+  "tiempo_por_epoca_s": 55.42005032300949,
+  "brecha_loss": 3.7500207505035403
+}

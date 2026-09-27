@@ -1,0 +1,32 @@
+{
+  "id": "E02",
+  "descripcion": "MLP 64px (efecto de la resoluci\u00f3n de entrada)",
+  "modelo": "mlp",
+  "preentrenado": false,
+  "ajuste": "completo",
+  "bn": true,
+  "dropout": 0.0,
+  "modelo_kw": {
+    "res": 64,
+    "ocultas": [
+      2048,
+      1024
+    ]
+  },
+  "datos": "completo",
+  "aumento": "ninguno",
+  "muestreo": "uniforme",
+  "optimizador": "adam",
+  "lr": 0.001,
+  "factor_lr_backbone": 1.0,
+  "weight_decay": 0.0,
+  "batch": 512,
+  "epocas": 16,
+  "warmup": 1.0,
+  "clip": 5.0,
+  "perdida": "ce",
+  "label_smoothing": 0.0,
+  "paciencia": 4,
+  "min_delta": 0.001,
+  "semilla": 42
+}

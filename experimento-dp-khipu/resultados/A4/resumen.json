@@ -1,0 +1,20 @@
+{
+  "id": "A4",
+  "descripcion": "+ BN + Dropout + aumento fuerte",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB",
+  "val_loss": 3.985295559082031,
+  "val_top1": 0.26513,
+  "val_top5": 0.48025,
+  "val_f1_macro": 0.2540987801704896,
+  "val_f1_weighted": 0.25409878017048965,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 636.1303701400757,
+  "tiempo_por_epoca_s": 39.75814813375473,
+  "brecha_loss": 0.4313774358367919
+}

@@ -1,0 +1,20 @@
+{
+  "id": "A3",
+  "descripcion": "+ BN + Dropout 0.3",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 3g.20gb",
+  "val_loss": 4.703592719726562,
+  "val_top1": 0.21209,
+  "val_top5": 0.4142,
+  "val_f1_macro": 0.20479534423120602,
+  "val_f1_weighted": 0.204795344231206,
+  "mejor_epoca": 13,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 1142.738208770752,
+  "tiempo_por_epoca_s": 71.421138048172,
+  "brecha_loss": 2.8098282089233395
+}

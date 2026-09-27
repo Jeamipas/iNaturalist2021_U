@@ -1,0 +1,20 @@
+{
+  "id": "E04",
+  "descripcion": "ResNet-50 desde cero",
+  "parametros": 43998032,
+  "parametros_entrenables": 43998032,
+  "gflops": 2.710110208,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA RTX A6000",
+  "val_loss": 3.481279521484375,
+  "val_top1": 0.37625,
+  "val_top5": 0.60369,
+  "val_f1_macro": 0.37094137453716813,
+  "val_f1_weighted": 0.3709413745371681,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 4515.93517947197,
+  "tiempo_por_epoca_s": 282.2459487169981,
+  "brecha_loss": 2.471944838066101
+}

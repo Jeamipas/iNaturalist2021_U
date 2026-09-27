@@ -1,0 +1,20 @@
+{
+  "id": "E12",
+  "descripcion": "AdamW, lr 1e-3, wd 0.05 (desacoplado)",
+  "parametros": 16306512,
+  "parametros_entrenables": 16306512,
+  "gflops": 1.194606592,
+  "imagenes_train": 500000,
+  "pasos_por_epoca": 1953,
+  "gpu": "NVIDIA A100-PCIE-40GB MIG 3g.20gb",
+  "val_loss": 4.358691608886719,
+  "val_top1": 0.2927,
+  "val_top5": 0.50506,
+  "val_f1_macro": 0.2874535845468052,
+  "val_f1_weighted": 0.28745358454680514,
+  "mejor_epoca": 16,
+  "epocas_corridas": 16,
+  "tiempo_train_s": 1181.510588169098,
+  "tiempo_por_epoca_s": 73.84441176056862,
+  "brecha_loss": 3.151716864089966
+}
