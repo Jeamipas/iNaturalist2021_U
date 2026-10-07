@@ -1,0 +1,17 @@
+{
+  "status": "PASSED",
+  "mode": "review",
+  "executed_code_cells": 8,
+  "notebook_sha256": "d15aedd08c24afd11483c1053505364f9f67acfa6782bce518ac2618a3a8d63b",
+  "prediction_evaluations_verified": 30,
+  "validation_images_per_run": 100000,
+  "notebook_errors": 0,
+  "training_sources": "Identical to archived training identities",
+  "new_training_started": false,
+  "python_review": "3.12.14",
+  "training_environment": "environment-freeze.txt",
+  "visual_review": {
+    "status": "PASSED",
+    "png_outputs_inspected": 14
+  }
+}

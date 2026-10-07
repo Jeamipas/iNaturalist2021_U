@@ -46,3 +46,9 @@ ENV/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Verificación local del entregable y cachés de ejecución
+.delivery-cache/
+cache/
+.pytest_cache/
+**/.mplconfig/

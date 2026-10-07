@@ -1,0 +1,24 @@
+# Mantener los checksums de fuentes y evidencia al clonar en Windows o Linux.
+notebooks/00_entregable_reproducible.ipynb text eol=lf
+outputs/convnext4_adam_muon_v3/** text eol=lf
+references/** text eol=lf
+requirements-full.txt text eol=lf
+scripts/build_deliverable.py text eol=lf
+scripts/build_diego_deliverable.py text eol=lf
+scripts/build_evidence_manifest.py text eol=lf
+scripts/execute_project_notebook.py text eol=lf
+scripts/full_setup.sh text eol=lf
+scripts/smoke_diego_pair.py text eol=lf
+scripts/stage_diego_predictions.py text eol=lf
+scripts/stage_khipu_downloads.py text eol=lf
+src/delivery_evidence.py text eol=lf
+src/diego_muon.py text eol=lf
+src/diego_workflow.py text eol=lf
+src/diego_reference/*.py text eol=lf
+src/full_data.py text eol=lf
+src/full_experiment.py text eol=lf
+src/khipu_pipeline.py text eol=lf
+tests/test_diego_extension.py text eol=lf
+tests/test_full_pipeline.py text eol=lf
+*.npz binary
+*.png binary

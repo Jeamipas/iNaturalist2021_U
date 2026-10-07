@@ -1,0 +1,47 @@
+{
+  "configuration": {
+    "id": "N04",
+    "descripcion": "ConvNeXt-Tiny ImageNet: fine-tuning completo con Muon + Adam auxiliar",
+    "modelo": "convnext_tiny",
+    "preentrenado": true,
+    "ajuste": "completo",
+    "bn": true,
+    "dropout": 0.0,
+    "modelo_kw": {
+      "stochastic_depth_prob": 0.1
+    },
+    "datos": "completo",
+    "aumento": "basico",
+    "muestreo": "uniforme",
+    "optimizador": "muon",
+    "lr": 0.001,
+    "factor_lr_backbone": 0.1,
+    "weight_decay": 5e-05,
+    "batch": 256,
+    "epocas": 16,
+    "warmup": 1.0,
+    "clip": 5.0,
+    "perdida": "ce",
+    "label_smoothing": 0.0,
+    "paciencia": 4,
+    "min_delta": 0.001,
+    "semilla": 42,
+    "muon_lr": 0.02
+  },
+  "torch_determinista": "0",
+  "data": {
+    "train_mini.json": "481b14dcabe945181e79c2cb8a65cf257e767468db8d94a9559b0ce639086060",
+    "val.json": "a2eaf1f38e7a275432c3d6d119ed41332412484bea26d71139837c13dbf027a9"
+  },
+  "cache_manifest": "ebef219180e465592c3a12a118f87b91bb62f831e0b8e312aa908310f9dc92ab",
+  "sources": {
+    "src/diego_reference/entrenamiento.py": "075433b7a10fa2da3e5b2e1a40fc5e53e6ea61f2c1d7e8032f86263378c35c31",
+    "src/diego_reference/modelos.py": "3bfd2d9d7b876d9e88fe2136589ef71dd922c0da66790bec397cbb7121f86042",
+    "src/diego_reference/datos.py": "bffe3b9917a9d57563e8ddba67d144d54dcb685dc5d36eec989261cfc8194fba",
+    "src/diego_muon.py": "4b35f2b80c916756c41b2cec758c174f26531ee3f9b0977293fa145259158e5d",
+    "src/full_experiment.py": "fcac91c1b40bea9a093e0defec5a9cfd2b9681b7786fc42de8333a1fcc585cb0",
+    "src/diego_workflow.py": "d7a5be5c0de2b18b83e5ac5c32ef1f1ebb4541662a8d6ef14b2165e69e943c7d",
+    "requirements-full.txt": "73d0ed4f37c65e2e10b4121121704990a6f14add5323419cbde43ef266c5adde"
+  },
+  "pretrained_weights_sha256": "983f1562536e84ff750a1576fb08e54de751dbf2e17c0d8a4a13704341fdcd3d"
+}

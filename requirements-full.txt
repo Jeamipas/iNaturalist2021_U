@@ -1,0 +1,8 @@
+# CUDA wheels are installed separately by the notebook's Khipu bootstrap.
+numpy==1.26.4
+pandas==2.2.3
+matplotlib==3.9.2
+Pillow==11.0.0
+nbformat==5.10.4
+nbclient==0.10.2
+ipykernel==6.29.5
