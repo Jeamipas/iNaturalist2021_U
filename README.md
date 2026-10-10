@@ -2,6 +2,36 @@
 
 Repositorio de código experimental para el proyecto de clasificación de especies a gran escala utilizando el dataset **iNaturalist 2021 (Mini)**.
 
+
+## Entregable final: 30 experimentos en un notebook
+
+El [notebook completo con código visible](notebooks/00_proyecto_completo_codigo_visible.ipynb)
+reúne preparación de datos, arquitecturas, optimizadores, entrenamiento, checkpoints,
+evaluación y análisis de los **26 experimentos históricos y cuatro ConvNeXt-Tiny**.
+Autores: **Jeanpier Garay, Diego Pacheco y Jesus Castillo**.
+
+Consulta la [guía mínima de ejecución](notebooks/LEEME_entregable.txt). El notebook
+instala sus dependencias fijadas y descarga datos, pesos y referencias automáticamente;
+el único `.py` auxiliar se crea e invoca desde sus propias celdas.
+
+- `MODE="audit"` (inicial): recalcula las métricas publicadas de los 30 experimentos.
+- `MODE="train"`: prepara el corpus y ejecuta las 30 recetas; requiere Internet,
+  GPU CUDA con BF16 y almacenamiento para datos y checkpoints.
+- `MODE="smoke"`: prueba entrenamiento y reanudación con datos sintéticos en CPU.
+
+Se mantienen las recetas originales: L2–L5 usan el long-tail de 120 474 imágenes;
+las otras 26 disponen del Mini completo de 500 000 imágenes. Todas las evaluaciones
+usan las 100 000 imágenes del val oficial. L1 carece de resultados publicados y
+no se incluye; tampoco hay ensambles. El val se utiliza para selección y reporte,
+por lo que no es un test independiente.
+
+Verificación: todas las celdas de `audit` y `smoke` ejecutadas sin errores,
+3 000 000 de predicciones comprobadas, tamaños y capas entrenables de las 30 recetas
+contrastados. Reentrenar puede producir variaciones numéricas según GPU y entorno;
+esta validación no repitió los 30 entrenamientos completos.
+
+---
+
 > **Curso**: Aprendizaje Profundo – Práctica  
 > **Programa**: Maestría de Investigación en Inteligencia Artificial, UTEC Posgrado  
 > **Profesor**: Dra. Aurea Soriano-Vargas  

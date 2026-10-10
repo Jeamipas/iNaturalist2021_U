@@ -1,0 +1,26 @@
+iNaturalist: 30 experimentos — entrega mínima
+
+1. Extrae ambos archivos en una carpeta y abre el notebook con Jupyter.
+   Usa Python 3.10–3.12. Para instalar Jupyter: python -m pip install jupyterlab
+   Para abrirlo: python -m jupyter lab
+
+2. Ejecuta las celdas de arriba abajo. La primera instala las dependencias.
+   Se necesita Internet para descargar dependencias, referencias y, al entrenar,
+   el dataset y los pesos ImageNet. El notebook descarga todo lo necesario.
+
+3. En la primera celda elige MODE:
+   audit: recalcula las métricas publicadas de los 30 experimentos (predeterminado).
+   train: prepara los datos y entrena las 30 recetas; requiere GPU CUDA/BF16
+          y espacio para el dataset, la caché y los checkpoints.
+   smoke: prueba el código con datos sintéticos en CPU.
+   Ejemplo para entrenar: MODE = os.environ.get("INAT_MODE", "train")
+   Reinicia el kernel al cambiar de modo. En Khipu, entrenar dentro de Slurm con GPU.
+
+4. Todo el código está visible. El notebook crea e invoca automáticamente
+   inat_resize_worker.py; no necesitas conseguir archivos .py adicionales.
+   Conserva la carpeta de trabajo y RUN_ID para reanudar desde los checkpoints.
+
+Se mantienen las recetas originales, incluidos los cuatro experimentos long-tail.
+Las métricas archivadas se verificaron; reentrenar puede producir variaciones
+numéricas según GPU y entorno. La validación de esta entrega no volvió a ejecutar los entrenamientos completos
+con el dataset real; sí verificó métricas, código y pruebas sintéticas.
